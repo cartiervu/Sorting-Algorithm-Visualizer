@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "gh-ages -d dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^6.3.0",
+    "gh-pages": "^3.2.3",
     "lodash": "^4.17.21",
     "style-loader": "^3.3.0",
     "webpack": "^5.57.1",
