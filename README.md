@@ -18,5 +18,5 @@ Visually animates well known sorting algorithms step-by-step.
 - CSS
 - JavaScript
 
-## Live Demo
+##
 [Live Demo Link](https://cartiervu.github.io/Sorting-Algorithm-Visualizer/)
