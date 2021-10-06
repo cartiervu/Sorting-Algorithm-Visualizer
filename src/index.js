@@ -1,67 +1,54 @@
-import _, { sortBy } from 'lodash';
+import _ from 'lodash';
+import { bubbleSort } from './bubbleSort'
+import { selectionSort } from './selectionSort';
 import './style.css'
 
-const SLEEP_TIME_MS = 250;
+const SLEEP_TIME_MS = 10;
 const NUMBER_OF_ELEMENTS = 30;
+
+const DEFAULT_COLOR = 'lightskyblue';
+const HIGHLIGHT_COLOR = 'tomato';
+const COMPLETED_COLOR = 'gold';
 
 let array = [];
 
 const visualizeSort = () => {
-    bubbleSort();
-}
-
-const visualizeSwap = (indexOne, indexTwo) => {
-    const blockOne = document.querySelector(`[data-index="${indexOne}"]`);
-    const blockTwo = document.querySelector(`[data-index="${indexTwo}"]`);
-    blockOne.setAttribute('data-index', indexTwo);
-    blockTwo.setAttribute('data-index', indexOne);
-
-    swap(indexOne, indexTwo);
-
-    blockTwo.parentNode.insertBefore(blockTwo, blockOne);
-}
-
-async function bubbleSort() {
-    for (let i = 0; i < array.length; i++) {
-        for (let j = 0; j < array.length - i - 1; j++) {
-            highlightBlocks(j, j+1);
-            await sleep(SLEEP_TIME_MS);
-            if (array[j] > array[j+1]) {
-                visualizeSwap(j, j+1);
-                await sleep(SLEEP_TIME_MS);
-            }
-            unhighlightBlock(j);
-            await sleep(SLEEP_TIME_MS);
-            if (j == array.length - i - 2) {
-                highlightCompletedBlock(array.length - i - 1);
-            }
-        }
-    }
+    selectionSort();
 }
 
 const swap = (i, j) => {
+    const blockOne = document.querySelector(`[data-index="${i}"]`);
+    const blockTwo = document.querySelector(`[data-index="${j}"]`);
+
+    (blockOne.childNodes[0]).style.height = (array[j] * 10) + 'px';
+    (blockOne.childNodes[1]).textContent = array[j];
+
+    (blockTwo.childNodes[0]).style.height = (array[i] * 10) + 'px';
+    (blockTwo.childNodes[1]).textContent = array[i];
+
     let temp = array[i];
     array[i] = array[j];
     array[j] = temp;
 }
 
-const highlightBlocks = (indexOne, indexTwo) => {
-    const blockOne = document.querySelector(`[data-index="${indexOne}"]`);
-    const blockTwo = document.querySelector(`[data-index="${indexTwo}"]`);
-
-    blockOne.firstChild.style.backgroundColor = 'tomato';
-    blockTwo.firstChild.style.backgroundColor = 'tomato';
-}
-
-const unhighlightBlock = (index) => {
+// STATUS: complete = COMPLETED_COLOR
+// STATUS: default = DEFAULT_COLOR
+// STATUS: comparing = HIGHLIGHT_COLOR
+const highlightBlock = (index, status) => {
     const block = document.querySelector(`[data-index="${index}"]`);
-
-    block.firstChild.style.backgroundColor = 'lightskyblue';
-}
-
-const highlightCompletedBlock = (index) => {
-    const block = document.querySelector(`[data-index="${index}"]`);
-    block.firstChild.style.backgroundColor = 'gold';
+    switch (status) {
+        case 'default':
+            block.firstChild.style.backgroundColor = DEFAULT_COLOR;
+            break;
+        case 'complete':
+            block.firstChild.style.backgroundColor = COMPLETED_COLOR;
+            break;
+        case 'comparing':
+            block.firstChild.style.backgroundColor = HIGHLIGHT_COLOR;
+            break;
+        default:
+            block.firstChild.style.backgroundColor = DEFAULT_COLOR;
+    }
 }
 
 const randomizeArray = (numberOfElements) => {
@@ -121,3 +108,5 @@ function sleep(ms) {
 
 randomizeArray(NUMBER_OF_ELEMENTS);
 setup();
+
+export { SLEEP_TIME_MS, array, swap, highlightBlock, sleep };
