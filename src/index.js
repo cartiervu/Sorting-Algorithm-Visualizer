@@ -6,19 +6,15 @@ import './style.css'
 
 const arrayContainer = document.getElementById('array-container');
 
-const SLEEP_TIME_MS = 10;
+const SLEEP_TIME_MS = 50;
 const NUMBER_OF_ELEMENTS = 15;
 
 const DEFAULT_COLOR = 'lightskyblue';
 const HIGHLIGHT_COLOR = 'tomato';
 const COMPLETED_COLOR = 'gold';
 
-let sortMode;
 let array = [];
 
-const visualizeSort = () => {
-    sortMode();
-}
 
 const swap = (i, j) => {
     const blockOne = document.querySelector(`[data-index="${i}"]`);
@@ -33,6 +29,13 @@ const swap = (i, j) => {
     let temp = array[i];
     array[i] = array[j];
     array[j] = temp;
+}
+
+const resetArrayColor = () => {
+    for (let i = 0; i < array.length; i++) {
+        const block = document.querySelector(`[data-index="${i}"]`);
+        block.firstChild.style.backgroundColor = DEFAULT_COLOR;
+    }
 }
 
 // STATUS: complete = COMPLETED_COLOR
@@ -66,13 +69,14 @@ const setup = () => {
     setupButtons();
 }
 
-const setupButtons = () => {
+const setupModeButtons = () => {
     const sortingModeContainer = document.getElementById('sorting-mode-container');
 
     const bubbleSortButton = document.createElement('button');
     bubbleSortButton.setAttribute('id', 'bubble-sort');
     bubbleSortButton.textContent = 'Bubble Sort'
     bubbleSortButton.addEventListener('click', () => {
+        resetArrayColor();
         bubbleSort();
     });
 
@@ -80,6 +84,7 @@ const setupButtons = () => {
     selectionSortButton.setAttribute('id', 'selection-sort');
     selectionSortButton.textContent = 'Selection Sort';
     selectionSortButton.addEventListener('click', () => {
+        resetArrayColor();
         selectionSort();
     });
 
@@ -87,12 +92,61 @@ const setupButtons = () => {
     insertionSortButton.setAttribute('id', 'insertion-sort');
     insertionSortButton.textContent = 'Insertion Sort';
     insertionSortButton.addEventListener('click', () => {
+        resetArrayColor();
         insertionSort();
     });
+
+    const mergeSortButton = document.createElement('button');
+    mergeSortButton.setAttribute('id', 'merge-sort');
+    mergeSortButton.textContent = 'Merge Sort';
+    // mergeSort.addEventListener('click', () => {
+    //     resetArrayColor();
+    //     mergeSort();
+    // });
 
     sortingModeContainer.appendChild(bubbleSortButton);
     sortingModeContainer.appendChild(selectionSortButton);
     sortingModeContainer.appendChild(insertionSortButton);
+    sortingModeContainer.appendChild(mergeSortButton);
+}
+
+const setupOptionButtons = () => {
+
+}
+
+const setupButtons = () => {
+    setupModeButtons();
+    const buttonContainer = document.getElementById('options-container');
+    
+    const randomizeArrayButton = document.createElement('button');
+    randomizeArrayButton.textContent = 'Randomize Array';
+    randomizeArrayButton.setAttribute('id', 'randomize-array-button');
+    randomizeArrayButton.addEventListener('click', () => {
+        array.splice(0, array.length)
+        randomizeArray(NUMBER_OF_ELEMENTS);
+        renderArray();
+    });
+
+    const incrSortedArrayButton = document.createElement('button');
+    incrSortedArrayButton.textContent = 'Increasingly Sorted Array';
+    incrSortedArrayButton.setAttribute('id', 'increasingly-array-button');
+    incrSortedArrayButton.addEventListener('click', () => {
+        array.sort((a, b) => {return a - b});
+        renderArray();
+    });
+
+    const decrSortedArrayButton = document.createElement('button');
+    decrSortedArrayButton.textContent = 'Decreasingly Sorted Array';
+    decrSortedArrayButton.setAttribute('id', 'decreasingly-array-button');
+    decrSortedArrayButton.addEventListener('click', () => {
+        array.sort((a, b) => {return b - a});
+        renderArray();
+    });
+
+
+    buttonContainer.appendChild(randomizeArrayButton);
+    buttonContainer.appendChild(incrSortedArrayButton);
+    buttonContainer.appendChild(decrSortedArrayButton);
 }
 
 const adjustNodeHeight = (node, value) => {
