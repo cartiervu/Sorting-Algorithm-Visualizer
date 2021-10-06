@@ -19,6 +19,7 @@ async function insertionSort() {
         }
         array[j+1] = key;
         highlightBlock(i, 'complete');
+        await sleep(SLEEP_TIME_MS);
     }
 }
 

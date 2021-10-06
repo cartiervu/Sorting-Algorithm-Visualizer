@@ -11,7 +11,6 @@ async function bubbleSort() {
                 await sleep(SLEEP_TIME_MS);
             }
             highlightBlock(j, 'default');
-            await sleep(SLEEP_TIME_MS);
         }
         highlightBlock(array.length - i - 1, 'complete');
     }

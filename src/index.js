@@ -6,7 +6,7 @@ import './style.css'
 
 const arrayContainer = document.getElementById('array-container');
 
-const SLEEP_TIME_MS = 50;
+const SLEEP_TIME_MS = 100;
 const NUMBER_OF_ELEMENTS = 15;
 
 const DEFAULT_COLOR = 'lightskyblue';
