@@ -12,3 +12,11 @@ Visually animates well known sorting algorithms step-by-step.
 ## Insertion Sort
 > Insertion sort is a simple sorting algorithm that works similar to the way you sort playing cards in your hands. The array is virtually split into a sorted and an unsorted part. Values from the unsorted part are picked and placed at the correct position in the sorted part.
 <img src="https://cartiervu.github.io/docs/assets/Insertion-Sort.gif">
+
+## Built With
+- HTML
+- CSS
+- JavaScript
+
+## Live Demo
+[Live Demo Link](https://cartiervu.github.io/Sorting-Algorithm-Visualizer/)
