@@ -4,6 +4,8 @@ async function insertionSort() {
     highlightBlock(0, 'complete');
     for (let i = 1; i < array.length; i++) {
         let key = array[i];
+        highlightBlock(i, 'comparing');
+        await sleep(SLEEP_TIME_MS);
         let j = i - 1;
         while (j >= 0 && array[j] > key) {
             highlightBlock(j, 'comparing');
@@ -16,6 +18,7 @@ async function insertionSort() {
             j--;
         }
         array[j+1] = key;
+        highlightBlock(i, 'complete');
     }
 }
 
