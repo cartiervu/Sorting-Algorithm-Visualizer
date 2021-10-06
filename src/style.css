@@ -1,5 +1,32 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1em;
+    background-color: #F0FFFF;
+}
+
+#title {
+    text-align: center;
+    font-size: 4.5em;
+    font-weight: 800;
+    text-shadow: 3px 3px grey;
+}
+
+#sorting-mode-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 button {
     padding: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 150px;
+    height: 50px;
+    font-size: 1em;
+    font-weight: bold;
+    border: 3px solid black;
+    border-radius: 5px;
 }
 
 #array-container {
@@ -8,7 +35,7 @@ button {
     justify-content: center;
     align-items: flex-end;
     align-self: center;
-    margin: 100px 250px 0 250px;
+    margin: 25px 250px 25px 250px;
 }
 
 .array-block {

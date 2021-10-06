@@ -1,29 +1,33 @@
 import _ from 'lodash';
 import { bubbleSort } from './bubbleSort'
 import { selectionSort } from './selectionSort';
+import { insertionSort } from './insertionSort';
 import './style.css'
 
+const arrayContainer = document.getElementById('array-container');
+
 const SLEEP_TIME_MS = 10;
-const NUMBER_OF_ELEMENTS = 30;
+const NUMBER_OF_ELEMENTS = 15;
 
 const DEFAULT_COLOR = 'lightskyblue';
 const HIGHLIGHT_COLOR = 'tomato';
 const COMPLETED_COLOR = 'gold';
 
+let sortMode;
 let array = [];
 
 const visualizeSort = () => {
-    selectionSort();
+    sortMode();
 }
 
 const swap = (i, j) => {
     const blockOne = document.querySelector(`[data-index="${i}"]`);
     const blockTwo = document.querySelector(`[data-index="${j}"]`);
 
-    (blockOne.childNodes[0]).style.height = (array[j] * 10) + 'px';
+    adjustNodeHeight(blockOne.childNodes[0], array[j]);
     (blockOne.childNodes[1]).textContent = array[j];
 
-    (blockTwo.childNodes[0]).style.height = (array[i] * 10) + 'px';
+    adjustNodeHeight(blockTwo.childNodes[0], array[i]);
     (blockTwo.childNodes[1]).textContent = array[i];
 
     let temp = array[i];
@@ -63,17 +67,39 @@ const setup = () => {
 }
 
 const setupButtons = () => {
-    const buttonContainer = document.getElementById('button-container');
-    
-    const playButton = document.createElement('button');
-    playButton.textContent = 'VISUALIZE';
-    playButton.addEventListener('click', () => visualizeSort());
+    const sortingModeContainer = document.getElementById('sorting-mode-container');
 
-    buttonContainer.appendChild(playButton);
+    const bubbleSortButton = document.createElement('button');
+    bubbleSortButton.setAttribute('id', 'bubble-sort');
+    bubbleSortButton.textContent = 'Bubble Sort'
+    bubbleSortButton.addEventListener('click', () => {
+        bubbleSort();
+    });
+
+    const selectionSortButton = document.createElement('button');
+    selectionSortButton.setAttribute('id', 'selection-sort');
+    selectionSortButton.textContent = 'Selection Sort';
+    selectionSortButton.addEventListener('click', () => {
+        selectionSort();
+    });
+
+    const insertionSortButton = document.createElement('button');
+    insertionSortButton.setAttribute('id', 'insertion-sort');
+    insertionSortButton.textContent = 'Insertion Sort';
+    insertionSortButton.addEventListener('click', () => {
+        insertionSort();
+    });
+
+    sortingModeContainer.appendChild(bubbleSortButton);
+    sortingModeContainer.appendChild(selectionSortButton);
+    sortingModeContainer.appendChild(insertionSortButton);
+}
+
+const adjustNodeHeight = (node, value) => {
+    node.style.height = (value * 5) + 'px';
 }
 
 const renderArray = () => {
-    const arrayContainer = document.getElementById('array-container');
     removeAllChildNodes(arrayContainer);
 
     for (let i = 0; i < array.length; i++) {
@@ -84,7 +110,7 @@ const renderArray = () => {
         const arrayBlock = document.createElement('div');
         arrayBlock.classList = 'array-block';
         arrayBlock.style.width = arrayContainer.offsetWidth / array.length + 'px';
-        arrayBlock.style.height = (array[i] * 10) + 'px';
+        adjustNodeHeight(arrayBlock, array[i]);
 
         const arrayBlockText = document.createElement('p');
         arrayBlockText.classList = 'array-block-text';
