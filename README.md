@@ -21,5 +21,5 @@ Insertion sort is a simple sorting algorithm that works similar to the way you s
 - CSS
 - JavaScript
 
-##
-[Live Demo Link](https://cartiervu.github.io/Sorting-Algorithm-Visualizer/)
+<!-- ##
+[Live Demo Link](https://cartiervu.github.io/Sorting-Algorithm-Visualizer/) -->
